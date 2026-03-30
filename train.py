@@ -28,6 +28,8 @@ def parse_args():
     # Agent params
     parser.add_argument("--agent", type=str, default="mc", choices=AGENTS.keys())
     parser.add_argument("--epsilon", type=float, default=0.2)
+    parser.add_argument("--epsilon-decay", type=float, default=0.001, help="Epsilon decay rate per episode")
+    parser.add_argument("--min-epsilon", type=float, default=0.01, help="Minimum epsilon after decay")
     parser.add_argument("--episodes", type=int, default=10000)
     parser.add_argument("--gamma", type=float, default=0.99)
     parser.add_argument("--alpha", type=float, default=0.2)
@@ -73,6 +75,8 @@ def make_agent(args, rng):
         "alpha": args.alpha,
         "gamma": args.gamma,
         "epsilon": args.epsilon,
+        "epsilon_decay": args.epsilon_decay,
+        "min_epsilon": args.min_epsilon,
         "rng": rng,
     }
     if args.agent == "sarsa":
